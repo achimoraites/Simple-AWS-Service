@@ -6,4 +6,4 @@ jspm_packages
 .serverless
 
 # Local Dynamo
-.dynamo
+.dynamodb
