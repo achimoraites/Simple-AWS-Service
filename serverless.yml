@@ -41,6 +41,7 @@ provider:
         - dynamodb:Scan  
         - dynamodb:GetItem
         - dynamodb:PutItem
+        - dynamodb:BatchWriteItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
@@ -50,6 +51,7 @@ provider:
         - dynamodb:Scan  
         - dynamodb:GetItem
         - dynamodb:PutItem
+        - dynamodb:BatchWriteItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE2}"
@@ -58,6 +60,7 @@ provider:
 functions:
     write:
       handler: handler.write
+      memorySize: 128
 
 # LETS DEFINE OUR DYNAMO TABLES HERE      
 # you can add CloudFormation resource templates here
