@@ -9,7 +9,7 @@ module.exports.write = (event, context, callback) => {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
       id: uuid.v1(),
-      text: 'data.text'
+      artist: 'artist'
     }
   }
   

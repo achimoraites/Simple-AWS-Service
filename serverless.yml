@@ -24,6 +24,7 @@ provider:
   region: eu-central-1
   stage: dev
   db-table-name: 'MUSIC'
+  db-backup-table-name: 'MUSIC-BACKUP'
 
 # you can overwrite defaults here
 #  stage: dev
@@ -32,6 +33,7 @@ provider:
 # you can add statements to the Lambda function's IAM Role here
   environment:
     DYNAMODB_TABLE: ${self:provider.db-table-name}-${opt:stage, self:provider.stage}
+    DYNAMODB_TABLE2: ${self:provider.db-backup-table-name}-${opt:stage, self:provider.stage}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -42,6 +44,15 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+  - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan  
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE2}"
 
 
 functions:
@@ -70,6 +81,25 @@ resources:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
+  TodosDynamoDbTable2: 
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: artist
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: artist
+            KeyType: RANGE
+
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
+        TableName: ${self:provider.environment.DYNAMODB_TABLE2}
 
 plugins:
   - serverless-dynamodb-local
