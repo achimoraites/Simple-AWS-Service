@@ -6,7 +6,7 @@ const uuid = require('uuid');
 module.exports.write = (event, context, callback) => {
 
 // Customized params
-    const params = (artist) => {
+    const params = artist => {
       return {
         TableName: process.env.DYNAMODB_TABLE,
         Item: {
