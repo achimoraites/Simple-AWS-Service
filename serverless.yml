@@ -59,6 +59,7 @@ functions:
     write:
       handler: handler.write
 
+# LETS DEFINE OUR DYNAMO TABLES HERE      
 # you can add CloudFormation resource templates here
 resources:
   Resources:
