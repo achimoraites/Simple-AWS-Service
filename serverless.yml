@@ -44,7 +44,7 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
-  - Effect: Allow
+    - Effect: Allow
       Action:
         - dynamodb:Query
         - dynamodb:Scan  
@@ -81,7 +81,7 @@ resources:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
-  TodosDynamoDbTable2: 
+    TodosDynamoDbTable2: 
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain
       Properties:
@@ -95,7 +95,6 @@ resources:
             KeyType: HASH
           - AttributeName: artist
             KeyType: RANGE
-
         ProvisionedThroughput:
           ReadCapacityUnits: 5
           WriteCapacityUnits: 5
