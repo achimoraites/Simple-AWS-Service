@@ -1,0 +1,34 @@
+env:
+  es6: true
+  node: true
+  mocha: true
+extends: 'eslint:recommended'
+parserOptions:
+  sourceType: module
+  ecmaVersion: 2017
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
+rules:
+  no-warning-comments: ["warn", {"terms": ["todo"]}]
+  no-throw-literal: 'error'
+  no-console: 'off'
+  no-var: "warn"
+  max-nested-callbacks: ["warn", 6]
+  prefer-const:
+    - warn
+    - destructuring: all
+      ignoreReadBeforeAssign: false
+  dot-notation: "warn"
+  no-use-before-define: "error"
+  no-await-in-loop: "error"
+  require-jsdoc:
+    - error
+    - require:
+        FunctionDeclaration: true
+        MethodDefinition: false
+        ClassDeclaration: false
+        ArrowFunctionExpression: false
+        FunctionExpression: false
+  semi:
+    - error
+    - always
