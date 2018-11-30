@@ -2,12 +2,12 @@
 const AWS = require('aws-sdk');
 
 
-//  streamProcessor function
-// listens to events on MUSIC table
-
-// NOTE: If callback is not called, function will exit with a null response.
+// streamProcessor function
+// listens to event streams from MUSIC table
+// puts event data in S3 bucket
 module.exports.streamProcessor = async (event, context, callback) => {
-  // simply put some data in the bucket
+  console.log('2:: Started streamProcessor function ');
+  // simply put received data in the bucket
   const s3 = new AWS.S3();
   const params = {
     Bucket: 'music-service-dev-tempbucket-ll2ztsovqmpg',
@@ -16,7 +16,9 @@ module.exports.streamProcessor = async (event, context, callback) => {
   };
 
   try {
+   console.log(' before putObject ');
    const data = await s3.putObject(params).promise();
+   console.log(' after putObject ');
    console.log(data);
    callback(null, 'ok');          // successful response
   } catch (err) {

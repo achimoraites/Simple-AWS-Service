@@ -1,8 +1,10 @@
 'use strict';
-
 const dynamoDb = require('./dynamodb');
 const uuid = require('uuid');
 
+
+// write function
+// puts items in MUSIC table
 module.exports.write = async (event, context, callback) => {
   console.log('1:: Started write function ');
   // Customized params
@@ -21,6 +23,7 @@ module.exports.write = async (event, context, callback) => {
  * Puts 10 items in MUSIC table.
  */
 async function put10Items() {
+  console.log(" put10Items started ");
   const results = [];
   for (let i=0;i<10;i++) {
     results.push(dynamoDb.put(params(`artist ${uuid.v4()}`)).promise());
@@ -29,26 +32,17 @@ async function put10Items() {
   return await Promise.all(results);
 }
 
-  // BUG: The for loop is syncronous but the db operation is not. Neither is setTimeout.
-  // put 10 records
 
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({message:'success'})
-  };
+
 
   try {
+   console.log("before put10Items "); 
    await put10Items();
-   callback(null, response);
-  } catch (error) {
-    console.error(error);
-    callback(null, {
-      statusCode: error.statusCode || 501,
-      headers: {
-        'Content-Type': 'text/plain'
-      },
-      body: 'Couldn\'t create the record item.'
-    });
+   console.log(" put10Items ended");
+   callback(null, 'ok');    // successful response
+  } catch (err) {
+    console.error(err);    
+    callback(err);          // an error occurred
   }
 
   
