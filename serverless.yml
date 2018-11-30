@@ -62,12 +62,38 @@ functions:
     write:
       handler: handler.write
     streamProcessor:
-      handler: handler.streamProcessor
+      handler: handler2.streamProcessor
+      events:
+      - stream: arn:aws:dynamodb:eu-central-1:974343026024:table/MUSIC-dev/stream/2018-11-30T07:53:34.333
+      - stream:
+          type: dynamodb
+          arn: arn:aws:dynamodb:eu-central-1:974343026024:table/MUSIC-dev/stream/2018-11-30T07:53:34.333
+          batchSize: 100
 
 # LETS DEFINE OUR DYNAMO TABLES HERE      
 # you can add CloudFormation resource templates here
 resources:
   Resources:
+
+    TempBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        # Set the CORS policy
+        CorsConfiguration:
+          CorsRules:
+            -
+              AllowedOrigins:
+                - '*'
+              AllowedHeaders:
+                - '*'
+              AllowedMethods:
+                - GET
+                - PUT
+                - POST
+                - DELETE
+                - HEAD
+              MaxAge: 3000
+
     TodosDynamoDbTable: 
       Type: AWS::DynamoDB::Table
       DeletionPolicy: Retain

@@ -4,7 +4,7 @@ const dynamoDb = require('./dynamodb');
 const uuid = require('uuid');
 
 module.exports.write = (event, context, callback) => {
-console.log('Started write function ');
+console.log('1:: Started write function ');
 // Customized params
     const params = artist => {
       return {
@@ -47,14 +47,3 @@ console.log('Started write function ');
     callback(null, response);
  
     };
-
-//  streamProcessor function
-// listens to events on MUSIC table
-module.exports.streamProcessor = (event, context, callback) => {
-  console.log('Started streamProcessor function ');
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify('aa')
-  };
-  callback(null, response);
-};
