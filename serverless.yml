@@ -144,4 +144,3 @@ resources:
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
-  - serverless-plugin-existing-s3
