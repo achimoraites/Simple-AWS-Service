@@ -77,6 +77,10 @@ functions:
           batchSize: 100
     backup:
       handler: handler3.backup
+      events:
+      - s3:
+          bucket: music-service-dev-tempbucket-ll2ztsovqmpg
+      event: s3:ObjectCreated:*
 
 # LETS DEFINE OUR DYNAMO TABLES HERE      
 # you can add CloudFormation resource templates here
@@ -143,3 +147,4 @@ resources:
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
+  - serverless-plugin-existing-s3

@@ -3,6 +3,7 @@
   "description": "",
   "version": "0.1.0",
   "dependencies": {
+    "serverless-plugin-existing-s3": "^2.2.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
