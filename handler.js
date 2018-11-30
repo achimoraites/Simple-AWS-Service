@@ -18,8 +18,7 @@ module.exports.write = async (event, context, callback) => {
   };
 
 /**
- * Puts items in MUSIC table.
- * @param {int} num1 The first number.
+ * Puts 10 items in MUSIC table.
  */
 async function put10Items() {
   const results = [];
