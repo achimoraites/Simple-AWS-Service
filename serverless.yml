@@ -75,7 +75,8 @@ functions:
           type: dynamodb
           arn: arn:aws:dynamodb:eu-central-1:974343026024:table/MUSIC-dev/stream/2018-11-30T07:53:34.333
           batchSize: 100
-    backup: handler3.backup
+    backup:
+      handler: handler3.backup
 
 # LETS DEFINE OUR DYNAMO TABLES HERE      
 # you can add CloudFormation resource templates here
