@@ -1,6 +1,5 @@
 'use strict';
-const dynamoDb = require('./dynamodb');
-const uuid = require('uuid');
+// const dynamoDb = require('./dynamodb');
 
 
 // backup function
