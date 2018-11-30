@@ -1,21 +1,22 @@
 'use strict';
+const AWS = require( 'aws-sdk' );
+
 
 //  streamProcessor function
 // listens to events on MUSIC table
+
 module.exports.streamProcessor = (event, context, callback) => {
-  console.log('2:: Started streamProcessor function ');
-  console.log('Event: ',JSON.stringify(event,null,2));
-  const processesedEvent = event.Records.map(record => {
-    const { eventID , eventVersion, dynamodb, eventName } = record;
-    const proscessedRecord = { eventID, eventVersion, dynamodb, eventName };
-    return proscessedRecord;
+  // simply put some data in the bucket
+  const s3 = new AWS.S3();
+  const params = {
+      Bucket : 'music-service-dev-tempbucket-ll2ztsovqmpg',
+      Key : 'key',
+      Body : 'data'
+  };
+  s3.putObject(params, function(err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else     console.log(data);           // successful response
   });
 
-  console.log('Processesed Event : ',JSON.stringify(processesedEvent,null,2));
 
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify(processesedEvent)
-  };
-  callback(null, response);
 };

@@ -36,6 +36,12 @@ provider:
     DYNAMODB_TABLE: ${self:provider.db-table-name}-${opt:stage, self:provider.stage}
     DYNAMODB_TABLE2: ${self:provider.db-backup-table-name}-${opt:stage, self:provider.stage}
   iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+         - "s3:PutObject"
+         - "s3:*"
+      Resource: "*"
+
     - Effect: Allow
       Action:
         - dynamodb:Query
