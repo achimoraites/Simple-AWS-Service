@@ -19,7 +19,14 @@ module.exports.backup = async (event, context, callback) => {
 
   };
 
-   await dynamoDb.put(params(`artist ${uuid.v4()}`)).promise();
-   callback(null, 'ok');    // successful response
+  try {
+    const add = await dynamoDb.put(params(`artist ${uuid.v4()}`)).promise();
+    callback(null, 'ok');    // successful response
+  } catch (error) {
+    callback(error, error);    // failed response
+  }
+ 
+
+
 
 };
