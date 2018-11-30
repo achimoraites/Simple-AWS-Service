@@ -16,10 +16,11 @@ module.exports.streamProcessor = async (event, context, callback) => {
   };
 
   try {
-   await s3.putObject(params).promise();
-   callback(null, 'ok');
+   const data = await s3.putObject(params).promise();
+   console.log(data);
+   callback(null, 'ok');          // successful response
   } catch (err) {
-    console.log(err, err.stack);
+    console.log(err, err.stack);  // an error occurred
     callback(err);
   }
  
