@@ -14,9 +14,10 @@ console.log('1:: Started write function ');
           artist
         }
       };
-     
+
     };
 
+// BUG: The for loop is syncronous but the db operation is not. Neither is setTimeout.
 // put 10 records
     for(let i=0;i<10;i++) {
 
@@ -44,6 +45,9 @@ console.log('1:: Started write function ');
       statusCode: 200,
       body: JSON.stringify(params.Item)
     };
+
+    // BUG: This callback will be invoked before items are put and before any
+    // errors are returned from the db operations
     callback(null, response);
- 
+
     };
