@@ -4,7 +4,7 @@ const dynamoDb = require('./dynamodb');
 const uuid = require('uuid');
 
 module.exports.write = (event, context, callback) => {
-
+console.log('Started write function ');
 // Customized params
     const params = artist => {
       return {
@@ -47,3 +47,13 @@ module.exports.write = (event, context, callback) => {
     callback(null, response);
  
     };
+
+
+module.exports.streamProcessor = (event, context, callback) => {
+  console.log('Started streamProcessor function ');
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify('aa')
+  };
+  callback(null, response);
+};

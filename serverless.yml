@@ -20,6 +20,7 @@ service: music-service # NOTE: update this with your service name
 provider:
   name: aws
   runtime: nodejs8.10
+  memorySize: 128
   profile: learner
   region: eu-central-1
   stage: dev
@@ -60,7 +61,8 @@ provider:
 functions:
     write:
       handler: handler.write
-      memorySize: 128
+    streamProcessor:
+      handler: handler.streamProcessor
 
 # LETS DEFINE OUR DYNAMO TABLES HERE      
 # you can add CloudFormation resource templates here
