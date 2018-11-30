@@ -48,7 +48,8 @@ console.log('Started write function ');
  
     };
 
-
+//  streamProcessor function
+// listens to events on MUSIC table
 module.exports.streamProcessor = (event, context, callback) => {
   console.log('Started streamProcessor function ');
   const response = {
