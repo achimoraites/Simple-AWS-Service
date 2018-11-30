@@ -32,9 +32,6 @@ async function put10Items() {
   return await Promise.all(results);
 }
 
-
-
-
   try {
    console.log("before put10Items "); 
    await put10Items();
@@ -44,11 +41,5 @@ async function put10Items() {
     console.error(err);    
     callback(err);          // an error occurred
   }
-
-  
-
-  // BUG: This callback will be invoked before items are put and before any
-  // errors are returned from the db operations
-  // callback(null, response);
 
 };
