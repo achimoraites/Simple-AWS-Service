@@ -6,7 +6,7 @@ const AWS = require('aws-sdk');
 // listens to events on MUSIC table
 
 // NOTE: If callback is not called, function will exit with a null response.
-module.exports.streamProcessor = (event, context, callback) => {
+module.exports.streamProcessor = async (event, context, callback) => {
   // simply put some data in the bucket
   const s3 = new AWS.S3();
   const params = {
@@ -15,15 +15,12 @@ module.exports.streamProcessor = (event, context, callback) => {
     Body: JSON.stringify(event)
   };
 
-  s3.putObject(params, function(err, data) {
-    // an error occurred
-    if (err) {
-      console.log(err, err.stack);
-      callback(err);
-
-    } else {
-      console.log(data); // successful response
-      callback(null, 'ok');
-    }
-  });
+  const response = {message: 'done'};
+  try {
+   await s3.putObject(params).promise();
+   callback(null, response);
+  } catch (error) {
+    callback(null);
+  }
+ 
 };
