@@ -32,8 +32,14 @@ async function put10Items() {
   // BUG: The for loop is syncronous but the db operation is not. Neither is setTimeout.
   // put 10 records
 
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify({message:'success'})
+  };
+
   try {
-    put10Items();
+   await put10Items();
+   callback(null, response);
   } catch (error) {
     console.error(error);
     callback(null, {
@@ -45,13 +51,10 @@ async function put10Items() {
     });
   }
 
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({message:'success'})
-  };
+  
 
   // BUG: This callback will be invoked before items are put and before any
   // errors are returned from the db operations
-  callback(null, response);
+  // callback(null, response);
 
 };
