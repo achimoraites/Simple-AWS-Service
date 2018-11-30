@@ -15,12 +15,12 @@ module.exports.streamProcessor = async (event, context, callback) => {
     Body: JSON.stringify(event)
   };
 
-  const response = {message: 'done'};
   try {
    await s3.putObject(params).promise();
-   callback(null, response);
-  } catch (error) {
-    callback(null);
+   callback(null, 'ok');
+  } catch (err) {
+    console.log(err, err.stack);
+    callback(err);
   }
  
 };
