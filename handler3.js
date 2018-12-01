@@ -25,7 +25,7 @@ module.exports.backup = async (event, context, callback) => {
           records = JSON.parse(data.Body.toString());
           // Run updateTable(records) !
           if(records) {
-            console.log(records);
+            // console.log(records);
             await backupOps.updateTable(records);
           }
           //  TESTING : failed promise

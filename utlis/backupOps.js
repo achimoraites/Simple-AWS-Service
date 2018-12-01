@@ -34,10 +34,11 @@ module.exports = {
     // for each record in data perform put or remove actions
     const actions = [];
     data.Records.forEach(record => {
+      console.log(record);
       if (record.eventName) {
         const { eventName } = record;
         if (eventName === 'MODIFY' || eventName === 'INSERT') {
-          actions.push(this.putRecord(record));
+          // actions.push(this.putRecord(record)); // not working yet
         } else if (eventName === 'DELETE') {
           actions.push(this.removeRecord(record));
         } else {
