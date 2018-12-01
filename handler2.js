@@ -12,6 +12,7 @@ module.exports.streamProcessor = async (event, context, callback) => {
   const s3 = new AWS.S3();
   const params = {
     Bucket: 'music-service-dev-tempbucket-ll2ztsovqmpg',
+    ContentType: "application/json",
     Key: 'data.json',
     Body: JSON.stringify(event)
   };
