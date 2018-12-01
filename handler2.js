@@ -2,6 +2,7 @@
 const AWS = require('aws-sdk');
 // TESTING
 // const rejectedPromise = require('./tests/rejectedPromise');
+const s3 = new AWS.S3(); // Usually put here, no need to run every time lambda is invoked
 
 // streamProcessor function
 // listens to event streams from MUSIC table
@@ -9,7 +10,6 @@ const AWS = require('aws-sdk');
 module.exports.streamProcessor = async (event, context, callback) => {
   console.log('2:: Started streamProcessor function ');
   // simply put received data in the bucket
-  const s3 = new AWS.S3();
   const params = {
     Bucket: 'music-service-dev-tempbucket-ll2ztsovqmpg',
     ContentType: "application/json",
@@ -24,12 +24,12 @@ module.exports.streamProcessor = async (event, context, callback) => {
   //  TESTING : failed promise
   //  await new rejectedPromise();
    // TESTING END
-  
+
    console.log(data);
    callback(null, 'ok');          // successful response
   } catch (err) {
     console.log(err, err.stack);  // an error occurred
     callback(err);
   }
- 
+
 };
