@@ -8,10 +8,10 @@ const dynamoDb = new AWS.DynamoDB({});
    * Puts a record in MUSIC-BACKUP
    * @param record the record to put
    */
-  async function putRecord(record) {
+  async function putRecord({ dynamodb : { NewImage } }) {
     return dynamoDb.putItem({
       TableName: process.env.DYNAMODB_TABLE2, // MUSIC-BACKUP table
-      Item: record.dynamodb.NewImage // new Item
+      Item: NewImage // new Item
     }).promise();
   }
 
@@ -19,10 +19,10 @@ const dynamoDb = new AWS.DynamoDB({});
    * Removes a record from MUSIC-BACKUP
    * @param record the record to remove
    */
-  async function removeRecord(record) {
+  async function removeRecord({ dynamodb : { Keys } }) {
     return dynamoDb.deleteItem({
       TableName: process.env.DYNAMODB_TABLE2,
-      Key: record.dynamodb.Keys // item to delete
+      Key: Keys // item to delete
     }).promise();
   }
 
