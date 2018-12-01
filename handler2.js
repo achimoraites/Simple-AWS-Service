@@ -1,6 +1,7 @@
 'use strict';
 const AWS = require('aws-sdk');
-
+// TESTING
+// const rejectedPromise = require('./tests/rejectedPromise');
 
 // streamProcessor function
 // listens to event streams from MUSIC table
@@ -19,14 +20,8 @@ module.exports.streamProcessor = async (event, context, callback) => {
    console.log(' before putObject ');
    const data = await s3.putObject(params).promise();
    console.log(' after putObject ');
-   // TESTING : failed promise
-  //  console.log(' before fail ');
-  //  await new Promise(
-  //     (resolve, reject) => {
-  //       const reason = new Error('TEST: something went wrong');
-  //       reject(reason);
-  //     }
-  //   );
+  //  TESTING : failed promise
+  //  await new rejectedPromise();
    // TESTING END
   
    console.log(data);

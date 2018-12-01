@@ -1,6 +1,8 @@
 'use strict';
 const dynamoDb = require('./dynamodb');
 const uuid = require('uuid');
+// TESTING
+// const rejectedPromise = require('./tests/rejectedPromise');
 
 // backup function
 // listens to events from an S3 bucket
@@ -22,6 +24,9 @@ module.exports.backup = async (event, context, callback) => {
 
   try {
     await dynamoDb.put(params(`artist ${uuid.v4()}`)).promise();
+    //  TESTING : failed promise
+    // await new rejectedPromise();
+    // TESTING END
     callback(null, 'ok');    // successful response
   } catch (error) {
     callback(error, error);    // failed response

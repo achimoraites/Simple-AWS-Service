@@ -1,7 +1,8 @@
 'use strict';
 const dynamoDb = require('./dynamodb');
 const uuid = require('uuid');
-
+// TESTING
+// const rejectedPromise = require('./tests/rejectedPromise');
 
 // write function
 // puts items in MUSIC table
@@ -31,12 +32,7 @@ async function put10Items() {
     console.log('Inserting element :', i);
   }
   //TESTING: for test purposes only push the rejected promise
-  //  results.push(new Promise(
-  //   (resolve, reject) => {
-  //     const reason = new Error('TEST: something went wrong');
-  //     reject(reason);
-  //   }
-  // ));
+    // results.push(rejectedPromise());
   // TESTING END
 
   return await Promise.all(results);
