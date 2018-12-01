@@ -17,10 +17,8 @@ module.exports.write = async (event, context, callback) => {
         artist
       }
     };
-
   };
 
- 
 /**
  * Puts 10 items in MUSIC table.
  */

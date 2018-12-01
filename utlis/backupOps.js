@@ -1,8 +1,8 @@
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB({});
-// 
+// Functionality for updating the MUSIC-BACKUP table 
 module.exports = {
-  // HELPERS FOR updateTable()
+  // HELPERS FOR updateTable
 
   /**
    * Puts a record in MUSIC-BACKUP
@@ -22,7 +22,7 @@ module.exports = {
   async removeRecord(record) {
     return dynamoDb.deleteItem({
       TableName: process.env.DYNAMODB_TABLE2,
-      Item: record.Keys // item to delete
+      Key: record.dynamodb.Keys // item to delete
     }).promise();
   },
 
@@ -41,12 +41,11 @@ module.exports = {
         if (eventName === 'MODIFY' || eventName === 'INSERT') {
           actions.push(this.putRecord(record)); 
         } else if (eventName === 'REMOVE') {
-          console.log(record);
+          // console.log(record.dynamodb.Keys);
           actions.push(this.removeRecord(record)); // does not work yet
         } else {
           console.error('Unknown event: ', eventName);
         }
-
       }
     });
     return await Promise.all(actions);
