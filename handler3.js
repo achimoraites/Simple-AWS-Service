@@ -10,7 +10,6 @@ const { updateTable } = require('./utils/backupOps');
 module.exports.backup = async (event, context, callback) => {
       console.log('3:: Started backup function ');
 
-      // We need to get the data.json file from the S3 bucket
       const s3 = new AWS.S3();
       let records = {};
       const params = {
