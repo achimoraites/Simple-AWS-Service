@@ -4,29 +4,29 @@ const dynamoDb = new AWS.DynamoDB({});
 
 // HELPERS FOR updateTable
 
-  /**
+/**
    * Puts a record in MUSIC-BACKUP
    * @param record the record to put
    * @returns {Promise}
    */
-  async function putRecord({ dynamodb : { NewImage } }) {
-    return dynamoDb.putItem({
-      TableName: process.env.DYNAMODB_TABLE2, // MUSIC-BACKUP table
-      Item: NewImage // new Item
-    }).promise();
-  }
+async function putRecord({ dynamodb : { NewImage } }) {
+  return dynamoDb.putItem({
+    TableName: process.env.DYNAMODB_TABLE2, // MUSIC-BACKUP table
+    Item: NewImage // new Item
+  }).promise();
+}
 
-  /**
+/**
    * Removes a record from MUSIC-BACKUP
    * @param record the record to remove
    * @returns {Promise}
    */
-  async function removeRecord({ dynamodb : { Keys } }) {
-    return dynamoDb.deleteItem({
-      TableName: process.env.DYNAMODB_TABLE2,
-      Key: Keys // item to delete
-    }).promise();
-  }
+async function removeRecord({ dynamodb : { Keys } }) {
+  return dynamoDb.deleteItem({
+    TableName: process.env.DYNAMODB_TABLE2,
+    Key: Keys // item to delete
+  }).promise();
+}
 
 
 // Functionality for updating the MUSIC-BACKUP table 
@@ -54,7 +54,7 @@ module.exports = {
         }
       }
     });
-    return await Promise.all(actions);
+    return Promise.all(actions);
   }
 
 };

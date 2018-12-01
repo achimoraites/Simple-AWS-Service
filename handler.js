@@ -27,11 +27,11 @@ module.exports.write = async () => {
    * Puts 10 items in MUSIC table.
    */
   function put10Items() {
-    console.log(" put10Items started ");
+    // console.log(" put10Items started ");
     const results = [];
     for (let i = 0; i < 10; i++) {
       results.push(dynamoDb.put(params(`artist ${uuid.v4()}`)).promise());
-      console.log('Inserting element :', i);
+      // console.log('Inserting element :', i);
     }
     //TESTING: for test purposes only push the rejected promise
     // results.push(rejectedPromise());
@@ -41,17 +41,18 @@ module.exports.write = async () => {
   }
 
   try {
-    console.log("before put10Items ");
+    // console.log("before put10Items ");
     await put10Items();
-    console.log(" put10Items ended");
+    // console.log(" put10Items ended");
     // since lambda function is async, there is no need for callback to be invoked,
     // you can simply return a response, or an error
-    return 'ok'; // successful response
+    return {
+      success: true,
+      comments: 'Some comments'
+    }; // successful response
+
     // or
-    // return {
-    //   success: true,
-    //   comments: 'Some comments'
-    // };
+    // return 'ok'
 
   } catch (err) {
     console.error(err);
