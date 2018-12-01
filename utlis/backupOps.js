@@ -13,7 +13,7 @@ const dynamoDb = new AWS.DynamoDB({});
       TableName: process.env.DYNAMODB_TABLE2, // MUSIC-BACKUP table
       Item: record.dynamodb.NewImage // new Item
     }).promise();
-  };
+  }
 
   /**
    * Removes a record from MUSIC-BACKUP
@@ -24,7 +24,7 @@ const dynamoDb = new AWS.DynamoDB({});
       TableName: process.env.DYNAMODB_TABLE2,
       Key: record.dynamodb.Keys // item to delete
     }).promise();
-  };
+  }
 
 
 // Functionality for updating the MUSIC-BACKUP table 
