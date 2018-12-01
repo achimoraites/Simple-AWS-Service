@@ -35,7 +35,7 @@ module.exports = {
   /**
    * Updates the MUSIC-BACKUP table using provided data
    * @param data the data from the dynamo event stream to work with
-   * @returns {Promise} of all operations to be performed.
+   * @returns {Promise} 
    */
   async updateTable(data) {
     // for each record in data perform put or remove actions
