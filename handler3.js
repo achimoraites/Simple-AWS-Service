@@ -10,20 +10,44 @@ const uuid = require('uuid');
 module.exports.backup = async (event, context, callback) => {
   console.log('3:: Started backup function ');
   console.log(JSON.stringify(event,null,2));
-  // testing the event by puting a record in MUSIC-BACKUP table
-  const params = artist => {
-    return {
-      TableName: process.env.DYNAMODB_TABLE2,
-      Item: {
-        id: uuid.v1(),
-        artist
-      }
-    };
+ 
+// HELPERS FOR updateTable()
 
-  };
+/**
+ * Puts a record in MUSIC-BACKUP
+ * @param record the record to put
+ */
+async function putRecord (record) {
+  dynamoDb.put(
+    { TableName: process.env.DYNAMODB_TABLE2,
+      Item: record.NewImage
+    }
+  ).promise();
+}
+
+/**
+ * Removes a record from MUSIC-BACKUP
+ * @param record the record to remove
+ */
+async function removeRecord (record) {
+  dynamoDb.deleteItem(
+    { TableName: process.env.DYNAMODB_TABLE2,
+      Item: record.Keys
+    }
+  ).promise();
+}
+
+/**
+ * Updates the MUSIC-BACKUP table based on received event Records
+ * @returns {Promise} of all operations to be performed.
+ */
+  async function updateTable () {
+
+  }
 
   try {
-    await dynamoDb.put(params(`artist ${uuid.v4()}`)).promise();
+    // await dynamoDb.put(params(`artist ${uuid.v4()}`)).promise();
+    await updateTable();
     //  TESTING : failed promise
     // await new rejectedPromise();
     // TESTING END
