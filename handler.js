@@ -26,7 +26,7 @@ module.exports.write = async () => {
   /**
    * Puts 10 items in MUSIC table.
    */
-  function put10Items() {
+  const put10Items = () => {
     // console.log(" put10Items started ");
     const results = [];
     for (let i = 0; i < 10; i++) {
@@ -38,7 +38,7 @@ module.exports.write = async () => {
     // TESTING END
 
     return Promise.all(results);
-  }
+  };
 
   try {
     // console.log("before put10Items ");
