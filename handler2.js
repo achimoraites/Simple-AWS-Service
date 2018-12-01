@@ -19,6 +19,16 @@ module.exports.streamProcessor = async (event, context, callback) => {
    console.log(' before putObject ');
    const data = await s3.putObject(params).promise();
    console.log(' after putObject ');
+   // TESTING : failed promise
+  //  console.log(' before fail ');
+  //  await new Promise(
+  //     (resolve, reject) => {
+  //       const reason = new Error('TEST: something went wrong');
+  //       reject(reason);
+  //     }
+  //   );
+   // TESTING END
+  
    console.log(data);
    callback(null, 'ok');          // successful response
   } catch (err) {
