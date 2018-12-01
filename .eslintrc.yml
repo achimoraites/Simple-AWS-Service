@@ -14,6 +14,7 @@ rules:
   no-console: 'off'
   no-var: "warn"
   max-nested-callbacks: ["warn", 6]
+  indent: ["error", 2]
   prefer-const:
     - warn
     - destructuring: all
