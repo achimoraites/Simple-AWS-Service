@@ -1,6 +1,6 @@
 'use strict';
 const dynamoDb = require('./dynamodb');
-const uuid = require('uuid');
+
 // TESTING
 // const rejectedPromise = require('./tests/rejectedPromise');
 
@@ -10,6 +10,10 @@ const uuid = require('uuid');
 module.exports.backup = async (event, context, callback) => {
   console.log('3:: Started backup function ');
   console.log(JSON.stringify(event,null,2));
+
+// We need to get the file from the S3 bucket
+// Parse the file and get the contents as JSON name it: data
+// Run updateTable(data) !
  
 // HELPERS FOR updateTable()
 
@@ -19,8 +23,8 @@ module.exports.backup = async (event, context, callback) => {
  */
 async function putRecord (record) {
   dynamoDb.put(
-    { TableName: process.env.DYNAMODB_TABLE2,
-      Item: record.NewImage
+    { TableName: process.env.DYNAMODB_TABLE2, // MUSIC-BACKUP table
+      Item: record.NewImage                   // new Item
     }
   ).promise();
 }
@@ -32,21 +36,22 @@ async function putRecord (record) {
 async function removeRecord (record) {
   dynamoDb.deleteItem(
     { TableName: process.env.DYNAMODB_TABLE2,
-      Item: record.Keys
+      Item: record.Keys                      // item to delete
     }
   ).promise();
 }
 
 /**
- * Updates the MUSIC-BACKUP table based on received event Records
+ * Updates the MUSIC-BACKUP table using provided data
+ * @param record the record to remove
  * @returns {Promise} of all operations to be performed.
  */
-  async function updateTable () {
-
+  async function updateTable (data) {
+    // for each record in data perform put or remove actions
   }
 
   try {
-    // await dynamoDb.put(params(`artist ${uuid.v4()}`)).promise();
+   // The interesting stuff begins here :)
     await updateTable();
     //  TESTING : failed promise
     // await new rejectedPromise();
