@@ -42,7 +42,7 @@ module.exports = {
           actions.push(this.putRecord(record)); 
         } else if (eventName === 'REMOVE') {
           // console.log(record.dynamodb.Keys);
-          actions.push(this.removeRecord(record)); // does not work yet
+          actions.push(this.removeRecord(record)); 
         } else {
           console.error('Unknown event: ', eventName);
         }
