@@ -1,6 +1,6 @@
 'use strict';
 const AWS = require('aws-sdk');
-const backupOps = require('./utlis/backupOps');
+const { updateTable } = require('./utils/backupOps');
 // TESTING
 // const rejectedPromise = require('./tests/rejectedPromise');
 
@@ -20,19 +20,19 @@ module.exports.backup = async (event, context, callback) => {
          
         try {
           // We need to get the data.json file from the S3 bucket
-          const data = await s3.getObject(params).promise();
+          const { Body } = await s3.getObject(params).promise();
           // Parse the file and get the contents as JSON object
-          records = JSON.parse(data.Body.toString());
+          records = JSON.parse(Body.toString());
           // Run updateTable(records) !
           if(records) {
             // console.log(records);
-            await backupOps.updateTable(records);
+            await updateTable(records);
           }
           //  TESTING : failed promise
           // await new rejectedPromise();
           // TESTING END
           callback(null, 'ok'); // successful response
         } catch (error) {
-          callback(error, error); // failed response
+          callback(error); // failed response
         }
       };
