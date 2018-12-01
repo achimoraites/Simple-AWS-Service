@@ -18,11 +18,6 @@ module.exports.write = async () => {
       }
     };
   };
-
-  // In this function, there is no need to await anything, you can just return a
-  // promise (Promise.all() is a promise), since it is being awaited later on.
-  // If there was anything after the Promise.all() part, then it would make sense
-  // to await the promise.
   /**
    * Puts 10 items in MUSIC table.
    */
@@ -44,8 +39,6 @@ module.exports.write = async () => {
     // console.log("before put10Items ");
     await put10Items();
     // console.log(" put10Items ended");
-    // since lambda function is async, there is no need for callback to be invoked,
-    // you can simply return a response, or an error
     return {
       success: true,
       comments: 'Some comments'
@@ -56,9 +49,7 @@ module.exports.write = async () => {
 
   } catch (err) {
     console.error(err);
-    // an error occurred
-    // throw err; Not advisable, it is best to return a response that explains
-    // that something went wrong
+
     return {
       success: false,
       err,
