@@ -9,7 +9,7 @@ const dynamoDb = new AWS.DynamoDB({});
    * @param record the record to put
    * @returns {Promise}
    */
-async function putRecord({ dynamodb : { NewImage } }) {
+function putRecord({ dynamodb : { NewImage } }) {
   return dynamoDb.putItem({
     TableName: process.env.DYNAMODB_TABLE2, // MUSIC-BACKUP table
     Item: NewImage // new Item
@@ -21,7 +21,7 @@ async function putRecord({ dynamodb : { NewImage } }) {
    * @param record the record to remove
    * @returns {Promise}
    */
-async function removeRecord({ dynamodb : { Keys } }) {
+function removeRecord({ dynamodb : { Keys } }) {
   return dynamoDb.deleteItem({
     TableName: process.env.DYNAMODB_TABLE2,
     Key: Keys // item to delete
@@ -37,7 +37,7 @@ module.exports = {
    * @param data the data from the dynamo event stream to work with
    * @returns {Promise} 
    */
-  async updateTable(data) {
+  updateTable(data) {
     // for each record in data perform put or remove actions
     const actions = [];
     data.Records.forEach(record => {
