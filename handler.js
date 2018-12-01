@@ -19,6 +19,7 @@ module.exports.write = async (event, context, callback) => {
 
   };
 
+ 
 /**
  * Puts 10 items in MUSIC table.
  */
@@ -29,6 +30,15 @@ async function put10Items() {
     results.push(dynamoDb.put(params(`artist ${uuid.v4()}`)).promise());
     console.log('Inserting element :', i);
   }
+  //TESTING: for test purposes only push the rejected promise
+  //  results.push(new Promise(
+  //   (resolve, reject) => {
+  //     const reason = new Error('TEST: something went wrong');
+  //     reject(reason);
+  //   }
+  // ));
+  // TESTING END
+
   return await Promise.all(results);
 }
 
