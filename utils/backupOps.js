@@ -7,6 +7,7 @@ const dynamoDb = new AWS.DynamoDB({});
   /**
    * Puts a record in MUSIC-BACKUP
    * @param record the record to put
+   * @returns {Promise}
    */
   async function putRecord({ dynamodb : { NewImage } }) {
     return dynamoDb.putItem({
@@ -18,6 +19,7 @@ const dynamoDb = new AWS.DynamoDB({});
   /**
    * Removes a record from MUSIC-BACKUP
    * @param record the record to remove
+   * @returns {Promise}
    */
   async function removeRecord({ dynamodb : { Keys } }) {
     return dynamoDb.deleteItem({
@@ -32,7 +34,7 @@ module.exports = {
   
   /**
    * Updates the MUSIC-BACKUP table using provided data
-   * @param record the record to remove
+   * @param data the data from the dynamo event stream to work with
    * @returns {Promise} of all operations to be performed.
    */
   async updateTable(data) {
