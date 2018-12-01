@@ -35,8 +35,4 @@ module.exports.backup = async (event, context, callback) => {
         } catch (error) {
           callback(error, error); // failed response
         }
-
-
-
-
       };

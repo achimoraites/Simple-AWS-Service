@@ -1,4 +1,5 @@
-const dynamoDb = require('../dynamodb');
+const AWS = require('aws-sdk');
+const dynamoDb = new AWS.DynamoDB({});
 // 
 module.exports = {
   // HELPERS FOR updateTable()
@@ -8,9 +9,9 @@ module.exports = {
    * @param record the record to put
    */
   async putRecord(record) {
-    return dynamoDb.put({
+    return dynamoDb.putItem({
       TableName: process.env.DYNAMODB_TABLE2, // MUSIC-BACKUP table
-      Item: record.NewImage // new Item
+      Item: record.dynamodb.NewImage // new Item
     }).promise();
   },
 
@@ -34,13 +35,14 @@ module.exports = {
     // for each record in data perform put or remove actions
     const actions = [];
     data.Records.forEach(record => {
-      console.log(record);
+      // console.log(record);
       if (record.eventName) {
         const { eventName } = record;
         if (eventName === 'MODIFY' || eventName === 'INSERT') {
-          // actions.push(this.putRecord(record)); // not working yet
-        } else if (eventName === 'DELETE') {
-          actions.push(this.removeRecord(record));
+          actions.push(this.putRecord(record)); 
+        } else if (eventName === 'REMOVE') {
+          console.log(record);
+          actions.push(this.removeRecord(record)); // does not work yet
         } else {
           console.error('Unknown event: ', eventName);
         }
